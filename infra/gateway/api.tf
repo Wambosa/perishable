@@ -1,9 +1,10 @@
 resource "aws_api_gateway_rest_api" "perishable" {
   name = "perishable"
+  description = "perishable unit tracking api"
 
   body = "${file("${path.module}/oas-integrations.yml")}"
 
-  api_key_source = "AUTHORIZER"
+  # api_key_source = "AUTHORIZER"
 
   endpoint_configuration {
     types = ["REGIONAL"]

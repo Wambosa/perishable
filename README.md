@@ -68,6 +68,10 @@ _workflow_
 - maybe a sql migration tool
 - integration tests with seeded data
 - front end demo client
+- unit conversion/localization (support for weight approximate match)
+- more robust filtering of custom parameters
+- createFilter is in need of unit tests
+- pagination
 
 ### aws cli
 _from a new vm or ec2_

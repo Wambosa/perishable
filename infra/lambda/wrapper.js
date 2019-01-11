@@ -14,6 +14,7 @@ exports.handler = async (event, context) => {
   let request = {
     headers: event.headers,
     pathParameters: event.pathParameters,
+    queryStringParameters: event.queryStringParameters,
     body: event.body,
     apiKey: event.apiKey,
     user_id: event.requestContext.authorizer.user_id,

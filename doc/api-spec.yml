@@ -12,7 +12,7 @@ paths:
     get:
       tags:
       - unit
-      summary: get a single unit by its unique id
+      summary: Get a single unit by its unique id.
       parameters:
       - name: id
         in: path
@@ -21,13 +21,13 @@ paths:
           type: string
       responses:
         200:
-          description: Successful single unit request
+          description: Successful single unit request.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/unit"
         400:
-          description: Failed single unit request
+          description: Failed single unit request.
           content:
             application/json:
               schema:
@@ -40,33 +40,34 @@ paths:
     get:
       tags:
       - unit
-      description: find units that meet the optional search filter criteria. omitting all filters will return all units that exist in your orginization
+      summary: Get multiple units by filtered search.
+      description: Find units that meet the optional search filter criteria. Omitting all filters will return all units that exist in your orginization. You may also search with undocumented parameters that have been defined in extended unit properties. These extended property matches will try a fuzzy string match.
       parameters:
-      - name: expire
-        description: full-date notation as defined by RFC 3339, section 5.6, for example, 2017-07-21
+      - name: expiredBy
+        description: Units with expiry dates before the provided will return. Full-date notation as defined by RFC 3339, section 5.6, for example, 2017-07-21.
         in: query
         schema:
           type: string
           format: date
-      - name: weight
-        description: float or whole number representing the expected grams the unit(s) weigh
+      - name: mass
+        description: Is currently an exact match. Float or whole number representing the expected grams the unit(s) weigh.
         in: query
         schema:
           type: number
           format: float
       - name: name
-        description: string will be fuzzy matched to the name of the unit(s)
+        description: Fuzzy matched to the name of the unit(s).
         in: query
         schema:
           type: string
       - name: desc
-        description: string will be fuzzy matched to the description of the unit(s)
+        description: Fuzzy matched to the description of the unit(s).
         in: query
         schema:
           type: string
       responses:
         200:
-          description: successful units query
+          description: successful units query.
           content:
             application/json:
               schema:
@@ -81,8 +82,8 @@ paths:
     post:
       tags:
       - unit
-      summary: create new unit
-      description: create new perishable unit concept for later tracking and review.
+      summary: Create new unit.
+      description: Create new perishable unit concept for later tracking and review.
       requestBody:
         content:
           application/json:
@@ -91,7 +92,7 @@ paths:
         required: true
       responses:
         200:
-          description: successful create perishable unit operation
+          description: Successful create perishable unit operation.
           content:
             application/json:
               schema:
@@ -103,11 +104,11 @@ paths:
     get:
       tags:
       - rule
-      summary: find validation rule names
-      description: currently returns all global rules and rules belonging to your orginization
+      summary: Find validation rule names.
+      description: Currently returns all global rules and rules belonging to your orginization.
       responses:
         200:
-          description: Successful rules query
+          description: Successful rules query.
           content:
             application/json:
               schema:
@@ -167,7 +168,7 @@ components:
 
   responses:
       BadRequest:
-        description: The specified resource was not found
+        description: The specified resource was not found.
         content:
           application/json:
             schema:
