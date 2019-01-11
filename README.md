@@ -72,6 +72,8 @@ _workflow_
 - more robust filtering of custom parameters
 - createFilter is in need of unit tests
 - pagination
+- git commit prehook unit test run
+- test runner
 
 ### aws cli
 _from a new vm or ec2_
