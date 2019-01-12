@@ -52,12 +52,12 @@ module.exports = async (req, conn, context) => {
 const clause = {
   expiredBy: "and u.expire < ?",
   mass: "and u.weight = ?",
-  name: "and u.name LIKE CONCAT('%', ? ,'%')",
-  desc: "and u.desc LIKE CONCAT('%', ? ,'%')",
+  name: "and u.name LIKE CONCAT('%', ?, '%')",
+  desc: "and u.`desc` LIKE CONCAT('%', ?, '%')",
 }
 
 function createFilter(qsParams) {
-  const where = [],
+  let where = [],
     params = []
 
   for ( let arg in qsParams) {
@@ -71,7 +71,8 @@ function createFilter(qsParams) {
   }
 
   if(where.length)
-    where[0] = `where ${where[0].slice(3)}`
+    where[0] = `where${where[0].slice(3)}`
 
+  where = where.join(' ')
   return { where, params }
 }

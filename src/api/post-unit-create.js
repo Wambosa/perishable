@@ -4,7 +4,7 @@ const { superstruct } = require('superstruct'),
       'required': val => !!val,
       'yyyy-mm-dd': val => /^\d{4}-\d{1,2}-\d{1,2}$/.test(val),
       'isLetter': val => /^[a-zA-Z]{1}$/.test(val),
-      'isHexadecimal': val => /^(#|)([0-9A-F]{3}|[0-9A-F]{6})$/i.test(val),
+      'isHexColor': val => /^(#|)([0-9A-F]{3}|[0-9A-F]{6})$/i.test(val),
       'isInteger': val => Number.isInteger(val),
     }
   })

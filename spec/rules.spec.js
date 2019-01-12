@@ -7,7 +7,7 @@ const method = require('../src/api/post-unit-create'),
 describe('GIVEN a db list of rules', () => {
   let requiredExists = [
     { rule_name: 'inRange', key: 'age', params: { min: 18, max: 130 } },
-    { rule_name: 'isHexadecimal', key: 'color', params: null },
+    { rule_name: 'isHexColor', key: 'color', params: null },
     { rule_name: 'isLetter', key: 'mood', params: null },
     { rule_name: 'required', key: 'mood', params: null },
     { rule_name: 'required', key: 'name', params: null },

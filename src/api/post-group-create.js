@@ -1,13 +1,4 @@
-const { superstruct } = require('superstruct'),
-  input = superstruct({
-    types: {
-      'required': val => !!val,
-      'yyyy-mm-dd': val => /^\d{4}-\d{1,2}-\d{1,2}$/.test(val),
-      'isLetter': val => /^[a-zA-Z]{1}$/.test(val),
-      'isHexColor': val => /^(#|)([0-9A-F]{3}|[0-9A-F]{6})$/i.test(val),
-      'isInteger': val => Number.isInteger(val),
-    }
-  })
+const { struct } = require('superstruct')
 
 const method = async (req, conn, context) => {
   const org_id = req.org_id,
@@ -57,7 +48,7 @@ const method = async (req, conn, context) => {
       INSERT INTO rule_map (unit_group_id, rule_name, \`key\`, params)
       VALUES ${req.body.rules.map(_ => `(${group_id}, ?, ?, ?)`).join(', ')}
     `,
-      method.expandValues(req.body.rules, ['rule_name', 'key', 'params'])
+      method.expandValues(stringify(req.body.rules), ['rule_name', 'key', 'params'])
     )
 
   //5. check for rule insert failure
@@ -76,7 +67,7 @@ method.flattenParams = (obj, order) => {
 }
 
 method.validateGroup = body => {
-  const model = input.partial({
+  const model = struct.partial({
     name: 'string',
     desc: 'string',
   })
@@ -94,7 +85,7 @@ method.validateGroup = body => {
 }
 
 method.validateRuleMap = rules => {
-  const model = input.partial({
+  const model = struct.partial({
     rule_name: 'string',
     key: 'string',
   })
@@ -119,6 +110,10 @@ method.validateRuleMap = rules => {
 method.expandValues = (rows, order) => {
   return rows.map(r => method.flattenParams(r, order))
     .reduce((a,b) => a.concat(b), [])
+}
+
+function stringify(rules) {
+  return rules.map(r => ({...r, params: r.params && JSON.stringify(r.params) || null}))
 }
 
 module.exports = method

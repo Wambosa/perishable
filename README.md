@@ -82,6 +82,7 @@ _workflow_
 - i might have already said this, better logging
 - the parameterizedValidators could use a pretty error name instead of <Function>
 - change column names that are reserved keywords -_- (key, desc, group)
+- create a terraform module for common api method pattern
 
 ### aws cli
 _from a new vm or ec2_
