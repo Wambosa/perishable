@@ -135,7 +135,7 @@ paths:
       tags:
       - rule
       summary: Find validation rule names.
-      description: Currently returns all global rules and rules belonging to your orginization.
+      description: Currently returns all rules belonging to your orginization.
       responses:
         200:
           description: Successful rules query.
@@ -145,6 +145,24 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/rule"
+      security:
+      - api_key: []
+
+  /group/search:
+    get:
+      tags:
+      - unit group/classification
+      summary: Find unit group/classification.
+      description: Currently returns all group/classification belonging to your orginization.
+      responses:
+        200:
+          description: Successful unit-group query.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/group"
       security:
       - api_key: []
 
@@ -187,6 +205,20 @@ components:
       properties:
         name:
           maxLength: 256
+          type: string
+
+    group:
+      title: group
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          maxLength: 256
+          type: string
+        desc:
           type: string
 
     error:
