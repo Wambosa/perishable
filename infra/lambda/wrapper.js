@@ -6,16 +6,33 @@ const method = require('./method.js'),
       password: process.env.DATABASE_PASS,
       database: process.env.DATABASE_NAME,
     }
-  })
+  }),
+  headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin' : '*',
+  }
 
 exports.handler = async (event, context) => {
   console.log('event:', event)
 
+  let parsedBody
+  try {
+    parsedBody = JSON.parse(event.body)
+  } catch(e) {
+    console.error(e.message)
+    return {
+        isBase64Encoded: false,
+        statusCode: 400,
+        headers: headers,
+        body: JSON.stringify({message: e.message})
+      }
+  }
+  
   let request = {
     headers: event.headers,
     pathParameters: event.pathParameters,
     queryStringParameters: event.queryStringParameters,
-    body: event.body,
+    body: parsedBody,
     apiKey: event.apiKey,
     user_id: event.requestContext.authorizer.user_id,
     org_id: event.requestContext.authorizer.org_id,
@@ -30,10 +47,7 @@ exports.handler = async (event, context) => {
   return {
     isBase64Encoded: false,
     statusCode: res.statusCode,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin' : '*',
-    },
+    headers: headers,
     body: JSON.stringify(res.body)
   }
 }

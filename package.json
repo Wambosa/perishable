@@ -10,7 +10,8 @@
     "url": "https://github.com/wambosa/perishable"
   },
   "dependencies": {
-    "serverless-mysql": "^1.2.0"
+    "serverless-mysql": "^1.2.0",
+    "superstruct": "^0.6.0"
   },
   "devDependencies": {
     "jasmine": "^3.1.0"

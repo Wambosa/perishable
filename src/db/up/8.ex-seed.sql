@@ -62,5 +62,5 @@ VALUES
 ('required', 4, 'rating', null),
 ('isLetter', 4, 'rating', null),
 ('required', 5, 'catchDate', null),
-('isDate', 5, 'catchDate', null),
+('yyyy-mm-dd', 5, 'catchDate', null),
 ('isInteger', 5, 'vesselId', null);

@@ -85,18 +85,48 @@ paths:
       summary: Create new unit.
       description: Create new perishable unit concept for later tracking and review.
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/unit"
-        required: true
+              type: object
+              required: ['name', 'group_id']
+              properties:
+                name:
+                  maxLength: 256
+                  type: string
+                  description: Easy name to remember.
+                group_id:
+                  type: integer
+                  format: int64
+                  description: The grouping or classification of this unit. Determines what validations apply to extended custom properties.
+                desc:
+                  type: string
+                  description: Verbose details about this unit.
+                mass:
+                  type: number
+                  format: float
+                  description: In grams.
+                expire:
+                  type: string
+                  format: date
+                  description: Expiration date. (example 2017-01-01)
+                ext:
+                  type: object
+                  description: Additional custom properties.
       responses:
         200:
           description: Successful create perishable unit operation.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/unit"
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    description: the newly defined unique unit id.
+                    readOnly: true
       security:
       - api_key: []
 
@@ -142,11 +172,11 @@ components:
         mass:
           type: number
           format: float
-          description: in grams
+          description: In grams.
         expire:
           type: string
           format: date
-          description: expiration date
+          description: Expiration date.
         ext:
           type: object
           description: additional custom properties

@@ -14,4 +14,8 @@ module.exports = {
       org_id: 0,
     },
   },
+  setBody: function(body) {
+    this.body = body
+    return this
+  }
 }

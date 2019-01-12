@@ -74,6 +74,14 @@ _workflow_
 - pagination
 - git commit prehook unit test run
 - test runner
+- create proper validator lib
+- transactional database changes
+- async validations (group_id may be a valid number, but you may not have access to that id or it may not exist)
+- abstract the validation away from the post/update methods
+- true multi-rule support (build validator functions on the fly)
+- i might have already said this, better logging
+- the parameterizedValidators could use a pretty error name instead of <Function>
+- change column names that are reserved keywords -_- (key, desc)
 
 ### aws cli
 _from a new vm or ec2_
