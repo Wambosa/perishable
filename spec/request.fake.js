@@ -15,7 +15,6 @@ module.exports = {
     },
   },
   setBody: function(body) {
-    this.body = body
-    return this
+    return {...this, body: body}
   }
 }

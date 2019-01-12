@@ -81,7 +81,7 @@ _workflow_
 - true multi-rule support (build validator functions on the fly)
 - i might have already said this, better logging
 - the parameterizedValidators could use a pretty error name instead of <Function>
-- change column names that are reserved keywords -_- (key, desc)
+- change column names that are reserved keywords -_- (key, desc, group)
 
 ### aws cli
 _from a new vm or ec2_

@@ -148,10 +148,65 @@ paths:
       security:
       - api_key: []
 
+  /group/create:
+    post:
+      tags:
+      - group/classification
+      summary: Create new group concept.
+      description: Create new group/classification concept with associated rules.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['name', 'desc']
+              properties:
+                name:
+                  maxLength: 256
+                  type: string
+                  description: Easy name to remember.
+                desc:
+                  type: string
+                  description: Verbose details about this unit.
+                rules:
+                  type: array
+                  description: Rule associations for this new grouping.
+                  items:
+                    type: object
+                    required: ['rule_name', 'key']
+                    properties:
+                      rule_name:
+                        maxLength: 256
+                        type: string
+                        description: An existing supported rule found in search/rule.
+                      key:
+                        maxLength: 256
+                        type: string
+                        description: The custom property in unit.ext you wish the rule to apply to.
+                      params:
+                        type: object
+                        description: Some validators support additional params (example inRange supports min/max) otherwise pass null.
+      responses:
+        200:
+          description: Successful create new group operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    description: the newly defined unique group id.
+                    readOnly: true
+      security:
+      - api_key: []
+
   /group/search:
     get:
       tags:
-      - unit group/classification
+      - group/classification
       summary: Find unit group/classification.
       description: Currently returns all group/classification belonging to your orginization.
       responses:

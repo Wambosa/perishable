@@ -55,7 +55,7 @@ VALUES
 ('required', 1, 'treeId', null),
 ('isInteger', 1, 'treeId', null),
 ('required', 2, 'vineCondition', null),
-('isHexadecimal', 2, 'color', null),
+('isHexColor', 2, 'color', null),
 ('isInteger', 3, 'cuppingScore', null),
 ('inRange', 3, 'cuppingScore', '{"min": 1, "max": 100}'),
 ('required', 3, 'treeType', null),
