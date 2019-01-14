@@ -5,6 +5,7 @@ _a code challenge_
 
 ## Table of Contents
 
+* [C4 Diagrams](#c4-diagrams)
 * [Initialize a new environment](#initialize-a-new-environment)
 * [Database Management](#database-management)
 * [Production](#production)
@@ -210,6 +211,17 @@ Finally remember to make the endpoint public by creating a _new deployment_ for 
 `aws apigateway create-deployment --rest-api-id <value> --stage-name v1`
 
 
+
+### C4 Diagrams
+_The name suggests 4 diagrams, however I think that the first two diagrams in the C4 spec are the most useful! So here they are._
+
+![Alt text](./doc/c4-context.svg)
+<img src="./doc/c4-context.svg">
+
+---------
+
+![Alt text](./doc/c4-container.svg)
+<img src="./doc/c4-container.svg">
 
 ----------
 
