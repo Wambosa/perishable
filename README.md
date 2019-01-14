@@ -215,13 +215,13 @@ Finally remember to make the endpoint public by creating a _new deployment_ for 
 ### C4 Diagrams
 _The name suggests 4 diagrams, however I think that the first two diagrams in the C4 spec are the most useful! So here they are._
 
-![Alt text](./doc/c4-context.svg)
-<img src="./doc/c4-context.svg">
+![c4 context](./doc/c4-context.svg)
 
 ---------
 
-![Alt text](./doc/c4-container.svg)
-<img src="./doc/c4-container.svg">
+![c4 container](./doc/c4-container.svg)
+
+
 
 ----------
 
