@@ -1,7 +1,16 @@
 openapi: "3.0.1"
 info:
-  title: "perish-alpha"
-  version: "1"
+  version: "demo"
+  title: Perishable
+  description: >-
+    A simple prototype of perishable unit tracking system.
+    Users of the system can currently create new groupings, new units, 
+    and search those existing groupings, units, and rules. In a complete version,
+    users would be able to have full CRUD operations including UPDATE and DELETE.
+    Extending the system to include this full functionality would fortunately be near trivial.
+  contact:
+    email: shondiaz@gmail.com
+
 servers:
 - url: "https://hgembpmlo6.execute-api.us-east-1.amazonaws.com/{basePath}"
   variables:
