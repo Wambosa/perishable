@@ -1,8 +1,8 @@
 // yes this really can and should live in its own module!
-const validator = require('../src/api/post-unit-create').parameterizedValidators
+const validators = require('../src/api/validate').parameterized
 
 describe('GIVEN initialzed inRange validator', () => {
-  let inRange = validator.inRange({min: 1, max: 100})
+  let inRange = validators.inRange({min: 1, max: 100})
 
   describe('WHEN checking null', () => {
     it('THEN it fails', () => expect(inRange(null)).toBeFalsy())

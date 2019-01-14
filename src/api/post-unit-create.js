@@ -1,20 +1,11 @@
-const { superstruct } = require('superstruct'),
-  input = superstruct({
-    types: {
-      'required': val => !!val,
-      'yyyy-mm-dd': val => /^\d{4}-\d{1,2}-\d{1,2}$/.test(val),
-      'isLetter': val => /^[a-zA-Z]{1}$/.test(val),
-      'isHexColor': val => /^(#|)([0-9A-F]{3}|[0-9A-F]{6})$/i.test(val),
-      'isInteger': val => Number.isInteger(val),
-    }
-  })
+const { validate, build } = require('./validate')
 
 const method = async (req, conn, context) => {
   const user_id = req.user_id,
     hasExt = !!req.body.ext
 
   // 1. validate common properties
-  let err = method.validateUnit(req.body)
+  let err = validate.unit(req.body)
   if(err)
     return {
       statusCode: 400,
@@ -37,7 +28,7 @@ const method = async (req, conn, context) => {
   rules = unpackParams(rules)
 
   //3. make sure user supplied minimal ext IF required-rules exist
-  let requiredExt = method.hasRequired(rules)
+  let requiredExt = validate.hasRequired(rules)
   if(!hasExt && requiredExt)
     return {
       statusCode: 400,
@@ -46,7 +37,7 @@ const method = async (req, conn, context) => {
 
   //4. run custom user-defined validators on extended properties
   if(hasExt) {
-    err = method.validateExt(req.body.ext, method.buildValidators(rules))
+    err = validate.extraProps(req.body.ext, build(rules))
     if(err)
       return {
         statusCode: 400,
@@ -94,82 +85,6 @@ const method = async (req, conn, context) => {
 
 method.flattenParams = (obj, order) => {
   return order.map(k => obj[k] || null)
-}
-
-method.hasRequired = rules => {
-  return rules.filter && rules.filter(r => r.rule_name === 'required')
-    .map(r => `Required extended property ${r.key}`)
-    .join('. ')
-}
-
-method.validateUnit = body => {
-  const model = input.partial({
-    name: 'string',
-    group_id: 'isInteger',
-    desc: 'string?',
-    mass: 'number?',
-    expire: 'yyyy-mm-dd?',
-  })
-
-  let err
-
-  try {
-    let report = model.validate(body)
-    err = report[0]
-    //console.warn('bad user input', report[0])
-  } catch (e) {
-    err = e
-    //console.error('validateUnit fatal err', e)
-  }
-
-  return err
-}
-
-method.validateExt = (ext, validators) => {
-  const custom = {}
-
-  for (let prop in validators)
-    custom[prop] = input.intersection(validators[prop])
-
-  const model = input.partial(custom)
-
-  let err
-  try {
-    let report = model.validate(ext)
-    err = report[0]
-    //console.warn('bad user input', report[0])
-  }
-  catch (e) {
-    err = e
-    //console.error('validateExt fatal err', e)
-  }
-
-  return err
-}
-
-method.buildValidators = rules => {
-  let validators = {}
-
-  rules.forEach(r => {
-    let prop = r.key,
-      rule = r.rule_name
-
-    if(!validators[prop])
-      validators[prop] = []
-
-    if(method.parameterizedValidators[rule])
-      validators[prop].push(method.parameterizedValidators[rule](r.params))
-    else
-      validators[prop].push(rule)
-  })
-
-  return validators
-}
-
-method.parameterizedValidators = {
-  inRange: params => {
-    return val => !isNaN(val) && val >= params.min && val <= params.max
-  }
 }
 
 function unpackParams(rules) {

@@ -1,8 +1,4 @@
-// yes this really can and should live in its own module!
-const method = require('../src/api/post-unit-create'),
- buildValidators = method.buildValidators,
-  hasRequired = method.hasRequired,
-  validateExt = method.validateExt
+const { validate, build } = require('../src/api/validate')
 
 describe('GIVEN a db list of rules', () => {
   let requiredExists = [
@@ -20,19 +16,19 @@ describe('GIVEN a db list of rules', () => {
 
   describe('WHEN finding "required" rule', () => {
     it('THEN return truthy', () => {
-      expect(hasRequired(requiredExists)).toBeTruthy()
+      expect(validate.hasRequired(requiredExists)).toBeTruthy()
     })
   })
 
   describe('WHEN no "required" rule exists', () => {
     it('THEN return falsy', () => {
-      expect(hasRequired(requiredMissing)).toBeFalsy()
+      expect(validate.hasRequired(requiredMissing)).toBeFalsy()
     })
   })
 
   describe('WHEN building validators', () => {
     let validators
-    beforeEach(() => validators = buildValidators(requiredExists))
+    beforeEach(() => validators = build(requiredExists))
 
     it('THEN a single object is returned', () => {
       expect(validators).toEqual(jasmine.any(Object))
@@ -47,7 +43,7 @@ describe('GIVEN a db list of rules', () => {
   })
 
   describe('WHEN validating with custom rules', () => {
-    let validators = buildValidators(requiredExists),
+    let validators = build(requiredExists),
       fullExt = {
         name: 'goku',
         age: 30,
@@ -69,12 +65,12 @@ describe('GIVEN a db list of rules', () => {
       }
 
     it('THEN multiple rules per property are honored', () => {
-      expect(validateExt(badName, validators)).toBeTruthy()
-      expect(validateExt(fullExt, validators)).toBeFalsy()
+      expect(validate.extraProps(badName, validators)).toBeTruthy()
+      expect(validate.extraProps(fullExt, validators)).toBeFalsy()
     })
 
     it('THEN extra properties are ignored', () => {
-      expect(validateExt(extraProps, validators)).toBeFalsy()
+      expect(validate.extraProps(extraProps, validators)).toBeFalsy()
     })
   })
 })

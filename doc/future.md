@@ -69,7 +69,9 @@ There are some edge cases I know about that I'd like to be covered too.
 For now they are skipped over since they are very very unlikely to be hit.
 I decided to spend time on other aspects and just add this to tech debt.
 
-
+###### Methods know sql
+I would prefer that the actual sql be abstracted from the methods.
+Somthing like `import queries from my-db-abstraction` then `mysql.query(queries.getUnit, params)`.
 
 
 ### Next Steps
