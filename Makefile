@@ -24,7 +24,8 @@ method:
 		cp -r ./infra/lambda/../../node_modules/.bin/* ./infra/lambda/.build/$$method/node_modules/.bin && \
 		cp -r ./infra/lambda/../../node_modules/* ./infra/lambda/.build/$$method/node_modules && \
 		cp ./infra/lambda/wrapper.js ./infra/lambda/.build/$$method/index.js && \
-		cp ./infra/lambda/../../src/api/$$method.js ./infra/lambda/.build/$$method/method.js ;\
+		cp ./infra/lambda/../../src/api/$$method.js ./infra/lambda/.build/$$method/method.js && \
+		cp ./infra/lambda/../../src/api/validate.js ./infra/lambda/.build/$$method/validate.js ;\
 	done
 
 deploy:
