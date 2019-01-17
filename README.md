@@ -1,5 +1,5 @@
 # Perishable
-_a code challenge_
+_serverless api with aws lambda aurora nodejs_
 
 
 
