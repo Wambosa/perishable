@@ -1,8 +1,17 @@
+data "template_file" "api_spec_integrations" {
+  template = "${file("${path.module}/oas-integrations.yml")}"
+
+  vars {
+    region = "${var.region}"
+    accountId = "${data.aws_caller_identity.current.account_id}"
+  }
+}
+
 resource "aws_api_gateway_rest_api" "perishable" {
   name = "perishable"
   description = "perishable unit tracking api"
 
-  body = "${file("${path.module}/oas-integrations.yml")}"
+  body = "${data.template_file.api_spec_integrations.rendered}"
 
   # api_key_source = "AUTHORIZER"
 

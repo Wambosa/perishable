@@ -28,7 +28,7 @@ paths:
       security:
       - auth: []
       x-amazon-apigateway-integration:
-        uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:979746346488:function:get-unit-id/invocations
+        uri: arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${accountId}:function:get-unit-id/invocations
         responses:
           default:
             statusCode: 200
@@ -111,7 +111,7 @@ paths:
       security:
       - auth: []
       x-amazon-apigateway-integration:
-        uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:979746346488:function:get-unit-search/invocations
+        uri: arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${accountId}:function:get-unit-search/invocations
         responses:
           default:
             statusCode: 200
@@ -177,7 +177,7 @@ paths:
       security:
       - auth: []
       x-amazon-apigateway-integration:
-        uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:979746346488:function:post-unit-create/invocations
+        uri: arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${accountId}:function:post-unit-create/invocations
         responses:
           default:
             statusCode: 200
@@ -241,7 +241,7 @@ paths:
       security:
       - auth: []
       x-amazon-apigateway-integration:
-        uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:979746346488:function:get-rule-search/invocations
+        uri: arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${accountId}:function:get-rule-search/invocations
         responses:
           default:
             statusCode: 200
@@ -307,7 +307,7 @@ paths:
       security:
       - auth: []
       x-amazon-apigateway-integration:
-        uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:979746346488:function:post-group-create/invocations
+        uri: arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${accountId}:function:post-group-create/invocations
         responses:
           default:
             statusCode: 200
@@ -371,7 +371,7 @@ paths:
       security:
       - auth: []
       x-amazon-apigateway-integration:
-        uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:979746346488:function:get-group-search/invocations
+        uri: arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${accountId}:function:get-group-search/invocations
         responses:
           default:
             statusCode: 200
@@ -434,7 +434,7 @@ components:
       in: header
       x-amazon-apigateway-authtype: custom
       x-amazon-apigateway-authorizer:
-        authorizerUri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:979746346488:function:auth/invocations
+        authorizerUri: arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${accountId}:function:auth/invocations
         authorizerResultTtlInSeconds: 0
         identitySource: method.request.header.apikey
         type: request
