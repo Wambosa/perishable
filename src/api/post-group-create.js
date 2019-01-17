@@ -1,4 +1,4 @@
-const { struct } = require('superstruct')
+const { validate } = require('./validate')
 
 const method = async (req, conn, context) => {
   const org_id = req.org_id,
@@ -6,7 +6,7 @@ const method = async (req, conn, context) => {
     hasRules = !!req.body.rules && req.body.rules.length
 
   // 1. validate group properties
-  let err = method.validateGroup(req.body)
+  let err = validate.unitGroup(req.body)
   if(err)
     return {
       statusCode: 400,
@@ -15,7 +15,7 @@ const method = async (req, conn, context) => {
 
   //2. IF rules are assosiacted, then validate the input
   if(hasRules)
-    err = method.validateRuleMap(req.body.rules)
+    err = validate.ruleMap(req.body.rules)
   if(err)
     return {
       statusCode: 400,
@@ -64,47 +64,6 @@ const method = async (req, conn, context) => {
 
 method.flattenParams = (obj, order) => {
   return order.map(k => obj[k] || null)
-}
-
-method.validateGroup = body => {
-  const model = struct.partial({
-    name: 'string',
-    desc: 'string',
-  })
-
-  let err
-
-  try {
-    let report = model.validate(body)
-    err = report[0]
-  } catch (e) {
-    err = e
-  }
-
-  return err
-}
-
-method.validateRuleMap = rules => {
-  const model = struct.partial({
-    rule_name: 'string',
-    key: 'string',
-  })
-
-  let err
-
-  try {
-    let report
-    rules.find(r => {
-      report = model.validate(r)
-      return !!report[0]
-    })
-
-    err = report[0]
-  } catch (e) {
-    err = e
-  }
-
-  return err
 }
 
 method.expandValues = (rows, order) => {

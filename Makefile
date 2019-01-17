@@ -20,12 +20,12 @@ test:
 
 method:
 	@for method in ${METHODS} ; do \
-		mkdir -p ./infra/lambda/.build/$$method/node_modules/.bin && \
-		cp -r ./node_modules/.bin/* ./infra/lambda/.build/$$method/node_modules/.bin && \
-		cp -r ./node_modules/* ./infra/lambda/.build/$$method/node_modules && \
-		cp ./infra/lambda/wrapper.js ./infra/lambda/.build/$$method/index.js && \
-		cp ./src/api/$$method.js ./infra/lambda/.build/$$method/method.js && \
-		cp ./src/api/validate.js ./infra/lambda/.build/$$method/validate.js ;\
+		mkdir -p ./infra/lambda/.build/$$method/node_modules/.bin \
+		&& cp -r ./node_modules/.bin/* ./infra/lambda/.build/$$method/node_modules/.bin \
+		&& cp -r ./node_modules/* ./infra/lambda/.build/$$method/node_modules \
+		&& cp ./infra/lambda/wrapper.js ./infra/lambda/.build/$$method/index.js \
+		&& cp ./src/api/$$method.js ./infra/lambda/.build/$$method/method.js \
+		&& cp ./src/api/validate.js ./infra/lambda/.build/$$method/validate.js ;\
 	done
 
 deploy:

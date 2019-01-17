@@ -1,4 +1,4 @@
-const { superstruct } = require('superstruct'),
+const { struct, superstruct } = require('superstruct'),
   input = superstruct({
     types: {
       'required': val => !!val,
@@ -23,16 +23,40 @@ class validate {
       expire: 'yyyy-mm-dd?',
     })
 
-    let err
+    return trySuperstruct(model, body)
+  }
 
-    try {
-      let report = model.validate(body)
-      err = report[0]
-    } catch (e) {
-      err = e
-    }
+  static unitGroup(body) {
+    const model = struct.partial({
+      name: 'string',
+      desc: 'string',
+    })
 
-    return err
+    return trySuperstruct(model, body)
+  }
+
+  static rule(rule) {
+    const model = struct.partial({
+      rule_name: 'string',
+      key: 'string',
+    })
+
+    return trySuperstruct(model, rule)
+  }
+
+  static ruleMap(rules) {
+    const model = struct.partial({
+      rule_name: 'string',
+      key: 'string',
+    })
+
+    let report
+    rules.find(r => {
+      report = validate.rule(r)
+      return !!report
+    })
+
+    return report
   }
 
   static extraProps(ext, validators) {
@@ -43,16 +67,7 @@ class validate {
 
     let model = input.partial(custom)
 
-    let err
-    try {
-      let report = model.validate(ext)
-      err = report[0]
-    }
-    catch (e) {
-      err = e
-    }
-
-    return err
+    return trySuperstruct(model, ext)
   }
 
   static hasRequired(rules) {
@@ -60,6 +75,19 @@ class validate {
       .map(r => `Required extended property ${r.key}`)
       .join('. ')
   }
+}
+
+const trySuperstruct = (model, data) => {
+  let err
+
+  try {
+    let report = model.validate(data)
+    err = report[0]
+  } catch (e) {
+    err = e
+  }
+
+  return err
 }
 
 const build = rules => {

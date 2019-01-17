@@ -21,7 +21,7 @@ module.exports = async (req, conn, context) => {
         on u.group_id = g.id
         and p.org_id = ?
 
-      join unit_ext x
+      left join unit_ext x
         on u.id = x.unit_id
 
       ${where}
