@@ -181,9 +181,9 @@ In `./infra/gateway/api.tf` the rules of access to the api are defined. Here are
 
 a. There is a limit of 1000 hits per day per key.
 
-b. There are two keys that are generated and two fake companies. Each of these keys are to be associated with a member from each different org.
+b. There are two keys that are generated and two fake companies. Each of these keys are to be associated with a member from each different org. _(you must manually write the update query to make the association)_
 
-c. No vanity url exists; instead aws generates one for us. https://hgembpmlo6.execute-api.us-east-1.amazonaws.com/v1
+c. ~~No vanity url exists; instead aws generates one for us. https://hgembpmlo6.execute-api.us-east-1.amazonaws.com/v1~~
 
 d. While the api is itself secured with https, the [demo page][demo-url] is a simple static site over http. A non-issue, but should be noted.
 
