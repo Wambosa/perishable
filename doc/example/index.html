@@ -1,0 +1,56 @@
+<!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Perishable API Spec</title>
+    <link href="http://shondiaz.com/img/crew.png" rel="shortcut icon"/>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-outline.css" integrity="sha256-YtkHTHYwqGh4JrLqOsp7bg41haGXrFrfQZQgJZbQWLk=" crossorigin="anonymous">
+
+    <style>
+      html
+      {
+        box-sizing: border-box;
+        overflow: -moz-scrollbars-vertical;
+        overflow-y: scroll;
+      }
+      *,
+      *:before,
+      *:after
+      {
+        box-sizing: inherit;
+      }
+      body
+      {
+        margin:0;
+        background: #fafafa;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="swagger-ui"></div>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.20.5/swagger-ui-bundle.js" integrity="sha256-Ui6L5y9JA4NVVABVwenJFWGReXyc2pKhbSVI/S8QVhk=" crossorigin="anonymous"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.20.5/swagger-ui-standalone-preset.js" integrity="sha256-JNXnIJtP6U0GoezgDWzZzQj2GftHkKOqYYthHFwmqfU=" crossorigin="anonymous"></script>
+    <script>
+    window.onload = () => {
+      const ui = SwaggerUIBundle({
+        url: "http://shondiaz.com/data/perishable.json",
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        plugins: [
+          SwaggerUIBundle.plugins.DownloadUrl
+        ],
+        layout: "StandaloneLayout"
+      })
+
+      window.ui = ui
+    }
+  </script>
+  </body>
+</html>
